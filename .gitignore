@@ -1,1 +1,10 @@
 claude-code-main
+node_modules/
+.next/
+out/
+_reference/
+web/node_modules/
+web/.next/
+web/out/
+*.tsbuildinfo
+next-env.d.ts
