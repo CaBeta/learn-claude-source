@@ -81,20 +81,21 @@ s02 的 agent 能用工具了,但用户体验很差: **用户盯着空白屏幕,
 # 之前 (s02): 等完整响应
 response = client.messages.create(...)
 
-# 现在 (s03): 流式获取
+# 现在 (s03): 流式获取文本
 with client.messages.stream(...) as stream:
-    for event in stream:
-        # 实时处理每个事件
-        handle_event(event)
+    for text in stream.text_stream:
+        # 实时处理每个文本增量
+        print(text, end="", flush=True)
 ```
 
-或者使用 `create(stream=True)`:
+或者使用事件回调获取完整 SSE 事件:
 
 ```python
-response = client.messages.create(stream=True, ...)
-with response as stream:
-    for line in stream.iter_lines():
-        ...
+with client.messages.stream(...) as stream:
+    stream.until_done()  # 等待流式完成
+
+# 也可以用 events 获取原始事件列表
+response = stream.get_final_message()
 ```
 
 ### Step 2: 理解事件类型

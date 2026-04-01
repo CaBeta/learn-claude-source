@@ -237,3 +237,8 @@ class PermissionSystem:
 3. **实现分类器模式 (PermissionMode.AUTO)**：不要求真正调用模型，而是实现一个简单的基于模式的分类器。例如：包含 `test` 的命令归为 "safe"，包含 `deploy` 的归为 "risky"，包含 `delete` 的归为 "dangerous"。
 
 4. **实现权限缓存**：当用户选择 "always" 或 "never" 时，将决策写入一个 JSON 文件，下次启动时自动加载。注意：需要区分 session 级别和永久级别的缓存。
+
+---
+
+**上一节**: [s05 - Context Management](./s05-context-management.md)
+**下一节**: [s07 - Skill System](./s07-skill-system.md) — 可复用技能，让 agent 能扩展能力。

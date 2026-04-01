@@ -257,3 +257,8 @@ class ContextManager:
 3. **添加 Warning 机制**：参考 Claude Code 的 `calculateTokenWarningState()`，在 token 使用量达到 80% 时打印警告，90% 时打印错误，95% 时阻止继续。把这些阈值做成可配置的。
 
 4. **对比不同压缩策略**：用同一段长对话，分别只用 snip、只用 microcompact、只用 autocompact，对比压缩后的 token 数和模型回答质量的差异。
+
+---
+
+**上一节**: [s04 - SubAgent](./s04-subagent.md)
+**下一节**: [s06 - Permission System](./s06-permission-system.md) — 安全关卡，让 agent 不做危险操作。

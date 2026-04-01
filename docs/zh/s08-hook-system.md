@@ -95,7 +95,6 @@ class HookResult:
     updated_output: str | None = None # 修改后的工具输出
     message: str | None = None        # 给用户/模型的提示消息
 ```
-```
 
 ### 4. Hook — 钩子定义
 
@@ -285,3 +284,8 @@ async def agent_loop_with_hooks(client, messages, hook_manager):
 3. **实现输入净化钩子**：写一个 PreToolUse hook，当 `run_command` 的命令包含 `\n`（换行注入）或 `&&`（命令链）时，自动拆分为独立的命令或警告用户。
 
 4. **实现自定义审批钩子**：结合 s06 的权限系统，将权限检查逻辑从 PermissionChecker 移到 PreToolUse hook 中。这样权限系统就变成了钩子系统的一个插件 — 展示了钩子系统的可扩展性。
+
+---
+
+**上一节**: [s07 - Skill System](./s07-skill-system.md)
+**下一节**: [s09 - Multi-Agent](./s09-multi-agent.md) — 协调器模式，让 agent 团队协作。

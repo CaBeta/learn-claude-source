@@ -227,3 +227,4 @@ Claude Code 的 AgentTool 实现要点:
 ---
 
 **上一节**: [s03 - Streaming](./s03-streaming.md)
+**下一节**: [s05 - Context Management](./s05-context-management.md) — 控制上下文大小，让 agent 永远不超 token 限制。

@@ -275,3 +275,8 @@ async def agent_loop(client, user_message, skill_manager):
 3. **实现 Token 预算**：参考 Claude Code 的 `estimateSkillFrontmatterTokens()`，在将技能列表注入 system prompt 前，估算占用的 token 数。如果超过预算，只保留最相关的 N 个技能描述。
 
 4. **实现动态技能发现**：当模型调用 `read_file` 读取某个目录下的文件时，自动扫描该目录的 `.claude/skills/` 子目录，加载新发现的技能。参考 `discoverSkillDirsForPaths()` 的实现。
+
+---
+
+**上一节**: [s06 - Permission System](./s06-permission-system.md)
+**下一节**: [s08 - Hook System](./s08-hook-system.md) — 生命周期钩子，让 agent 能被定制。
