@@ -75,6 +75,7 @@ export function useSteppedVisualization(totalSteps: number) {
 
   return {
     currentStep: state.currentStep,
+    totalSteps: state.totalSteps,
     isPlaying: state.isPlaying,
     speed: state.speed,
     goTo,

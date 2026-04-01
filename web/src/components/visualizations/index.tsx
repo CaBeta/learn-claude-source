@@ -6,7 +6,7 @@ interface SessionVisualizationProps {
 }
 
 // Lazy-loaded visualization components for each session
-const visualizationMap: Record<string, React.LazyExoticComponent<{ version: string }>> = {
+const visualizationMap: Record<string, React.LazyExoticComponent<React.ComponentType<{ version: string }>>> = {
   s01: lazy(() => import("./s01-agent-loop").then((m) => ({ default: m.AgentLoopVisualization }))),
   s02: lazy(() => import("./s02-tool-dispatch").then((m) => ({ default: m.ToolDispatchVisualization }))),
   s03: lazy(() => import("./s03-streaming").then((m) => ({ default: m.StreamingVisualization }))),

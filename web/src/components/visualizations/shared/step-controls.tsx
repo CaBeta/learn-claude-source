@@ -4,33 +4,33 @@ interface StepControlsProps {
   currentStep: number;
   totalSteps: number;
   isPlaying: boolean;
-  onPlay: () => void;
-  onPause: () => void;
-  onNext: () => void;
-  onPrev: () => void;
-  onReset: () => void;
+  play: () => void;
+  pause: () => void;
+  next: () => void;
+  prev: () => void;
+  reset: () => void;
 }
 
 export function StepControls({
   currentStep,
   totalSteps,
   isPlaying,
-  onPlay,
-  onPause,
-  onNext,
-  onPrev,
-  onReset,
+  play,
+  pause,
+  next,
+  prev,
+  reset,
 }: StepControlsProps) {
   return (
     <div className="flex items-center gap-2">
       <button
-        onClick={onReset}
+        onClick={reset}
         className="rounded px-2 py-1 text-xs text-[var(--color-text-secondary)] hover:bg-zinc-100 dark:hover:bg-zinc-800"
       >
         Reset
       </button>
       <button
-        onClick={onPrev}
+        onClick={prev}
         disabled={currentStep === 0}
         className="rounded px-2 py-1 text-xs hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-30"
       >
@@ -38,21 +38,21 @@ export function StepControls({
       </button>
       {isPlaying ? (
         <button
-          onClick={onPause}
+          onClick={pause}
           className="rounded bg-amber-500 px-3 py-1 text-xs font-medium text-white"
         >
           Pause
         </button>
       ) : (
         <button
-          onClick={onPlay}
+          onClick={play}
           className="rounded bg-emerald-500 px-3 py-1 text-xs font-medium text-white"
         >
           Play
         </button>
       )}
       <button
-        onClick={onNext}
+        onClick={next}
         disabled={currentStep >= totalSteps - 1}
         className="rounded px-2 py-1 text-xs hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-30"
       >
