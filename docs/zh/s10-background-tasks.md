@@ -196,7 +196,3 @@ tools = [
 3. **实现任务依赖**：任务 B 依赖任务 A 的结果。只有当 A 完成后 B 才能开始。如何在 `TaskQueue` 中表达和执行这种依赖关系？
 
 4. **添加超时和取消**：如果任务执行超过 30 秒，自动标记为 `failed`。用户也可以通过 `task_stop` 主动取消。如何安全地中断正在运行的线程？
-
----
-
-**Previous:** [s09 Multi-Agent Coordinator](./s09-multi-agent.md) · **Next:** [s11 Session & Memory](./s11-session-memory.md)

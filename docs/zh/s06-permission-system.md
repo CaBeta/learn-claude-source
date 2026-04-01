@@ -4,15 +4,11 @@
 
 *信任但验证 — 每个工具调用都需要通过安全检查*
 
----
-
 ## Problem
 
 你的代理拥有强大的能力：可以读写文件、执行 Shell 命令、发送网络请求。如果不加限制，一个错误的工具调用就可能删除重要文件、泄露敏感信息、甚至执行恶意代码。
 
 你需要一套权限系统，在每次工具执行前进行检查：这个操作安全吗？用户是否允许？是否符合预设的安全规则？
-
----
 
 ## Solution
 
@@ -49,8 +45,6 @@ tool_use block (来自模型)
   v
 tool_result message
 ```
-
----
 
 ## How It Works
 
@@ -193,8 +187,6 @@ class PermissionSystem:
             return "allow" in result
 ```
 
----
-
 ## Claude Code 源码对照
 
 | 机制 | 源文件 | 关键行 |
@@ -212,8 +204,6 @@ class PermissionSystem:
 | 权限上下文求值 | `hooks/toolPermission/PermissionContext.ts` | 规则求值逻辑 |
 | buildTool 默认权限 | `Tool.ts` | L757-769: `TOOL_DEFAULTS.checkPermissions` |
 
----
-
 ## What Changed From s05
 
 | 特性 | s05 Context Management | s06 Permission System |
@@ -226,8 +216,6 @@ class PermissionSystem:
 | 模式支持 | 无 | 6 种 PermissionMode |
 | 安全默认值 | 无 | 危险命令自动禁止 |
 
----
-
 ## Try It
 
 1. **添加更多安全规则**：为 `run_command` 添加规则，禁止包含 `sudo`、`curl | bash`、`mkfs` 等危险模式的命令。为 `write_file` 添加规则，禁止写入 `/etc/`、`/usr/` 等系统目录。
@@ -237,8 +225,3 @@ class PermissionSystem:
 3. **实现分类器模式 (PermissionMode.AUTO)**：不要求真正调用模型，而是实现一个简单的基于模式的分类器。例如：包含 `test` 的命令归为 "safe"，包含 `deploy` 的归为 "risky"，包含 `delete` 的归为 "dangerous"。
 
 4. **实现权限缓存**：当用户选择 "always" 或 "never" 时，将决策写入一个 JSON 文件，下次启动时自动加载。注意：需要区分 session 级别和永久级别的缓存。
-
----
-
-**上一节**: [s05 - Context Management](./s05-context-management.md)
-**下一节**: [s07 - Skill System](./s07-skill-system.md) — 可复用技能，让 agent 能扩展能力。

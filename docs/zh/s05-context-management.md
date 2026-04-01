@@ -4,15 +4,11 @@
 
 *记忆是有限的 — 聪明的代理知道该忘记什么*
 
----
-
 ## Problem
 
 代理在运行过程中会不断积累上下文：读取的文件内容、执行的命令输出、工具返回的结果。假设你的代理读了 30 个文件、跑了 20 条命令，context window 里已经堆积了 100K+ tokens。模型的 context window 是有限的（比如 200K tokens），一旦超出，API 调用就会报错。
 
 你需要一套机制来管理这些不断膨胀的对话历史 — 在保留关键信息的同时，丢弃不再需要的内容。
-
----
 
 ## Solution
 
@@ -43,8 +39,6 @@ messages (原始对话历史)
   v
 messagesForQuery (处理后，送入 API)
 ```
-
----
 
 ## How It Works
 
@@ -211,8 +205,6 @@ class ContextManager:
         return msgs
 ```
 
----
-
 ## Claude Code 源码对照
 
 | 机制 | 源文件 | 关键行 |
@@ -233,8 +225,6 @@ class ContextManager:
 | 完整压缩 (生成 summary) | `services/compact/compact.ts` | L313: `compactConversation()` |
 | while(true) 循环入口 | `query.ts` | L307: `while (true) {` |
 
----
-
 ## What Changed From s04
 
 | 特性 | s04 SubAgent | s05 Context Management |
@@ -246,8 +236,6 @@ class ContextManager:
 | 安全阈值 | 无 | Warning / Error / Blocking 三级阈值 |
 | 压缩失败恢复 | 无 | Circuit breaker (最多连续失败3次) |
 
----
-
 ## Try It
 
 1. **修改 `max_tokens` 阈值**：把 `ContextManager` 的 `max_tokens` 设为很小的值（比如 500），观察 autocompact 如何被触发。观察压缩前后的消息数量变化。
@@ -257,8 +245,3 @@ class ContextManager:
 3. **添加 Warning 机制**：参考 Claude Code 的 `calculateTokenWarningState()`，在 token 使用量达到 80% 时打印警告，90% 时打印错误，95% 时阻止继续。把这些阈值做成可配置的。
 
 4. **对比不同压缩策略**：用同一段长对话，分别只用 snip、只用 microcompact、只用 autocompact，对比压缩后的 token 数和模型回答质量的差异。
-
----
-
-**上一节**: [s04 - SubAgent](./s04-subagent.md)
-**下一节**: [s06 - Permission System](./s06-permission-system.md) — 安全关卡，让 agent 不做危险操作。

@@ -4,8 +4,6 @@
 
 *在每个关键时刻介入 — 钩子让你定制代理的每个行为*
 
----
-
 ## Problem
 
 你已经有了工具系统、权限系统和技能系统。但你还缺少一种机制，在关键的生命周期节点插入自定义逻辑：
@@ -16,8 +14,6 @@
 - 在模型输出包含敏感信息时，自动脱敏
 
 你需要一个事件驱动的钩子系统，让用户能在不修改核心代码的情况下定制代理行为。
-
----
 
 ## Solution
 
@@ -41,8 +37,6 @@ Agent Loop
   +-- [SessionEnd Hooks]        <-- 会话结束
   +-- [Stop Hooks]              <-- 代理停止时
 ```
-
----
 
 ## How It Works
 
@@ -231,8 +225,6 @@ async def agent_loop_with_hooks(client, messages, hook_manager):
             final_output = post_result.updated_output or output
 ```
 
----
-
 ## Claude Code 源码对照
 
 | 机制 | 源文件 | 关键行 |
@@ -257,8 +249,6 @@ async def agent_loop_with_hooks(client, messages, hook_manager):
 | SessionStart 入口 | `utils/hooks.ts` | L3554: `yield* executeHooks(...)` |
 | Stop 入口 | `utils/hooks.ts` | L3587: `await executeHooksOutsideREPL(...)` |
 
----
-
 ## What Changed From s07
 
 | 特性 | s07 Skill System | s08 Hook System |
@@ -273,8 +263,6 @@ async def agent_loop_with_hooks(client, messages, hook_manager):
 | 优先级 | 无 | 数字优先级 (越小越先) |
 | 短路行为 | 无 | 一旦阻止，后续钩子不执行 |
 
----
-
 ## Try It
 
 1. **实现敏感文件保护钩子**：写一个 PreToolUse hook，当 `write_file` 或 `edit_file` 的路径匹配 `.env`、`credentials.json`、`id_rsa` 等敏感文件时，阻止写入并警告用户。
@@ -284,8 +272,3 @@ async def agent_loop_with_hooks(client, messages, hook_manager):
 3. **实现输入净化钩子**：写一个 PreToolUse hook，当 `run_command` 的命令包含 `\n`（换行注入）或 `&&`（命令链）时，自动拆分为独立的命令或警告用户。
 
 4. **实现自定义审批钩子**：结合 s06 的权限系统，将权限检查逻辑从 PermissionChecker 移到 PreToolUse hook 中。这样权限系统就变成了钩子系统的一个插件 — 展示了钩子系统的可扩展性。
-
----
-
-**上一节**: [s07 - Skill System](./s07-skill-system.md)
-**下一节**: [s09 - Multi-Agent](./s09-multi-agent.md) — 协调器模式，让 agent 团队协作。

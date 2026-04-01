@@ -1,17 +1,11 @@
 # Session 01: Agent Loop — 代理的核心循环
 
----
-
 ```
 进度: [■□□□□□□□□□] 10%   s01 ──► s02 ──► s03 ──► s04 ──► ...
          你在这里
 ```
 
----
-
 > *一切始于一个循环 — call model, check stop, repeat*
-
----
 
 ## Problem — 我们在解决什么问题?
 
@@ -23,8 +17,6 @@
 - 拿到结果 → 继续思考 → 任务完成 → 输出总结
 
 这个 **不断循环、直到任务完成** 的过程,就是 Agent Loop。
-
----
 
 ## Solution — 核心架构
 
@@ -59,8 +51,6 @@
                     │                                  │
                     └──────────────────────────────────┘
 ```
-
----
 
 ## How It Works — 逐步拆解
 
@@ -125,8 +115,6 @@ messages.append({"role": "assistant", "content": response.content})
 messages.append({"role": "user", "content": tool_results})
 ```
 
----
-
 ## Claude Code 源码对照
 
 Claude Code 的核心循环在 `query.ts` 中:
@@ -164,8 +152,6 @@ while (true) {
 
 注意 Claude Code 使用的是 **async generator** (`yield`),这样可以逐步产出中间结果,而不是等到全部完成。
 
----
-
 ## What Changed From s00
 
 | 方面            | s00 (之前)        | s01 (本节)               |
@@ -175,8 +161,6 @@ while (true) {
 | stop_reason     | 不处理            | 检查并分支处理             |
 | 工具调用        | 无               | 识别 tool_use 但不执行     |
 | 输出            | 直接打印          | 区分文本输出和工具需求      |
-
----
 
 ## Try It — 动手练习
 
@@ -193,7 +177,3 @@ while (true) {
 3. **思考题**: 为什么没有工具的 agent 只会循环一次? 模型在什么情况下才会返回 `tool_use`?
 
 4. **进阶挑战**: 试着把 `while True` 改成递归调用。思考哪种方式更好,为什么 Claude Code 选择了 `while True`。
-
----
-
-**下一节**: [s02 - Tool Use](./s02-tool-use.md) — 给 agent 装上双手,让它能读写文件。

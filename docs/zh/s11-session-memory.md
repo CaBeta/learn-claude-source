@@ -184,7 +184,3 @@ def should_extract(messages, last_extraction) -> bool:
 3. **多级记忆系统**：实现 Claude Code 的 4 级记忆：`managed`（系统管理）、`user`（用户全局）、`project`（项目级）、`local`（会话级）。不同级别的记忆有不同的生命周期和可见范围。
 
 4. **记忆去重**：当多次提取产生重复信息时，如何合并而不丢失细节？提示：在提取 prompt 中包含当前记忆内容，让 LLM 基于现有内容做增量更新而非重写。
-
----
-
-**Previous:** [s10 Background Tasks](./s10-background-tasks.md) · **Next:** [s12 Production Agent](./s12-production-agent.md)

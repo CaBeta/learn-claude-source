@@ -183,7 +183,3 @@ pending → running → completed
 3. **实现 Worker 间接力**：Worker A 完成后，Coordinator 用 `SendMessage` 将 A 的关键发现传递给 Worker B，让 B 在 A 的基础上继续工作，而不是从零开始。
 
 4. **对比单 Agent vs 多 Agent**：同一个复杂任务，分别用单 agent 和多 agent 完成。比较 token 消耗、总时间、结果质量。在什么场景下多 agent 更优？
-
----
-
-**Previous:** [s08 Hook System](./s08-hook-system.md) · **Next:** [s10 Background Tasks](./s10-background-tasks.md)

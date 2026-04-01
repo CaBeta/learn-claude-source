@@ -4,15 +4,11 @@
 
 *一次学会，终身受用 — 技能让代理拥有专业能力*
 
----
-
 ## Problem
 
 你的代理已经能做很多事了，但有些复杂工作流需要反复执行：比如代码审查、生成 commit message、诊断错误、编写测试。每次都要给模型详细指令，既浪费 token，又不够可靠。
 
 你希望有一种机制，把"专家知识"打包成可复用的技能。模型需要时自动加载，不需要时不占用 context window。
-
----
 
 ## Solution
 
@@ -45,8 +41,6 @@
 模型输出 (按技能指引的结构化响应)
 ```
 
----
-
 ## How It Works
 
 ### 1. Skill Definition — 技能定义
@@ -54,14 +48,11 @@
 每个技能是一个 Markdown 文件，包含 YAML frontmatter 和 prompt body：
 
 ```markdown
----
 name: code-review
 description: Review code changes and provide feedback
 aliases: [review, cr]
 when-to-use: "When the user asks to review code or check code quality"
 allowed-tools: [read_file, glob, grep]
----
-
 You are a senior code reviewer. Analyze the provided code changes and:
 
 1. **Correctness**: Check for logic errors, edge cases
@@ -227,8 +218,6 @@ async def agent_loop(client, user_message, skill_manager):
     # ... 正常 agent loop ...
 ```
 
----
-
 ## Claude Code 源码对照
 
 | 机制 | 源文件 | 关键行 |
@@ -250,8 +239,6 @@ async def agent_loop(client, user_message, skill_manager):
 | 内置技能实现 | `skills/bundled/` | 16 个内置技能目录 |
 | SkillTool (按需注入) | `tools/SkillTool/` | 工具调用时的技能加载 |
 
----
-
 ## What Changed From s06
 
 | 特性 | s06 Permission System | s07 Skill System |
@@ -264,8 +251,6 @@ async def agent_loop(client, user_message, skill_manager):
 | 用户交互 | y/n 确认 | /skill-name 命令 |
 | Token 开销 | 规则描述 (~100 tokens) | 仅 frontmatter (~50 tokens/skill) |
 
----
-
 ## Try It
 
 1. **创建自定义技能**：在 `skills/` 目录下创建一个新的技能目录，比如 `skills/test-writer/SKILL.md`。让它包含完整的测试编写指南：测试命名规范、断言策略、边界条件覆盖要求。然后在 agent 中用 `/test-writer` 调用它。
@@ -275,8 +260,3 @@ async def agent_loop(client, user_message, skill_manager):
 3. **实现 Token 预算**：参考 Claude Code 的 `estimateSkillFrontmatterTokens()`，在将技能列表注入 system prompt 前，估算占用的 token 数。如果超过预算，只保留最相关的 N 个技能描述。
 
 4. **实现动态技能发现**：当模型调用 `read_file` 读取某个目录下的文件时，自动扫描该目录的 `.claude/skills/` 子目录，加载新发现的技能。参考 `discoverSkillDirsForPaths()` 的实现。
-
----
-
-**上一节**: [s06 - Permission System](./s06-permission-system.md)
-**下一节**: [s08 - Hook System](./s08-hook-system.md) — 生命周期钩子，让 agent 能被定制。

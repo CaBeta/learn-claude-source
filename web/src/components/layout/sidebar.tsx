@@ -3,7 +3,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LAYERS, VERSION_META } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { useLocale } from "@/lib/i18n";
 
 const LAYER_COLORS: Record<string, string> = {
   core: "bg-blue-500",
@@ -14,7 +13,6 @@ const LAYER_COLORS: Record<string, string> = {
 
 export function Sidebar() {
   const pathname = usePathname();
-  const locale = useLocale();
 
   return (
     <aside className="hidden w-56 shrink-0 lg:block">
@@ -30,7 +28,7 @@ export function Sidebar() {
             <div className="space-y-0.5">
               {layer.versions.map((vid) => {
                 const meta = VERSION_META[vid];
-                const href = `/${locale}/learn/${vid}`;
+                const href = `/learn/${vid}`;
                 const isActive = pathname === href;
                 return (
                   <Link
